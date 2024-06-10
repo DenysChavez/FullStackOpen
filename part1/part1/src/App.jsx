@@ -1,52 +1,39 @@
-const Hello = (props) => {
-  console.log(props);
-  return (
-    <div>
-      Hello {props.name}, you are {props.age} years old
-    </div>
-  );
-};
+import { useState } from "react";
 
-// const App = () => {
-//     const name = "Peter";
-//     const age = 10;
-//   return (
-//     <>
-//       <h1>Greetings</h1>
-//       <Hello name="Maya" age={26 + 10} />
-//       <Hello name={name} age={age} />
-//     </>
-//   );
-// };
+const Display = ({ counter }) => <div>{counter}</div>;
 
-// const App = () => {
-//   const friends = [
-//     { name: "Peter", age: 4 },
-//     { name: "Maya", age: 10 },
-//   ];
-//   console.log(friends[0]);
-//   console.log(friends[1]);
-
-//   return (
-//     <div>
-//       <p>
-//         {friends[0].name} {friends[0].age}
-//       </p>
-//       <p>
-//         {friends[1].name} {friends[1].age}
-//       </p>
-//     </div>
-//   );
-// };
+const Button = ({ onSmash, text }) => <button onClick={onSmash}>{text}</button>;
 
 const App = () => {
-  const friends = ["Peter", "Maya"];
+  const [counter, setCounter] = useState(0);
+  console.log("rendering with counter value", counter);
 
-  return (
-    <div>
-      <p>{friends}</p>
-    </div>
-  );
+  const increaseByOne = () => {
+    console.log("increasing, value before", counter);
+    setCounter(counter + 1);
+  };
+
+  const decreaseByOne = () => {
+    console.log("decreasing, value before", counter);
+    setCounter(counter - 1);
+  };
+
+  const setToZero = () => {
+    console.log("resetting to zero, value before", counter);
+    setCounter(0);
+  };
+  
+    return (
+      <div>
+        <Display counter={counter} />
+        {/* /* In React, it’s conventional to use onSomething names for props which
+        take functions which handle events and handleSomething for the actual
+        function definitions which handle those events."*/}
+        <Button onClick={increaseByOne} text="plus" />
+        <Button onClick={setToZero} text="zero" />
+        <Button onClick={decreaseByOne} text="minus" />
+      </div>
+    );
 };
 
 export default App;
