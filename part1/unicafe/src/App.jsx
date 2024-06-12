@@ -50,14 +50,56 @@ const App = () => {
   const [bad, setBad] = useState(0);
 
   return (
-    <div>
-      <Title text={"Give Feedback"} />
-      <Button handleFuntion={() => setGood(good + 1)} text={"Good"} />
-      <Button handleFuntion={() => setNeutral(neutral + 1)} text={"Neutral"} />
-      <Button handleFuntion={() => setBad(bad + 1)} text={"Bad"} />
-      <Title text={"Statistics"} />
-      <Statistics good={good} neutral={neutral} bad={bad} />
-    </div>
+    <>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <Title text={"Give Feedback"} />
+            </th>
+          </tr>
+        </thead>
+      </table>
+
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Button handleFuntion={() => setGood(good + 1)} text={"Good"} />
+            </td>
+            <td>
+              <Button
+                handleFuntion={() => setNeutral(neutral + 1)}
+                text={"Neutral"}
+              />
+            </td>
+            <td>
+              <Button handleFuntion={() => setBad(bad + 1)} text={"Bad"} />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <Title text={"Statistics"} />
+            </th>
+          </tr>
+        </thead>
+      </table>
+
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Statistics good={good} neutral={neutral} bad={bad} />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </>
   );
 };
 
