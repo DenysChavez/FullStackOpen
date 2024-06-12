@@ -13,10 +13,12 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setSelectedVote] = useState(Array(anecdotes.length).fill(0));
 
   const handleNextAnecdote = () => {
     const randomNumber = Math.floor(Math.random() * anecdotes.length)
     setSelected(randomNumber);
+    
 }
 
   return (
