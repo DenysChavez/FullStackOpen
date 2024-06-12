@@ -14,18 +14,41 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [votes, setSelectedVote] = useState(Array(anecdotes.length).fill(0));
+  const [highestVote, setHighestVote] = useState(0);
+  const [highestAcoute, setHigestAcout] = useState("");
 
   const handleNextAnecdote = () => {
     const randomNumber = Math.floor(Math.random() * anecdotes.length)
     setSelected(randomNumber);
-    
-}
+
+  }
+  
+  const handleVoteClick = () => {
+    const newVotes = [...votes];
+    newVotes[selected] += 1;
+    setSelectedVote(newVotes);
+
+    const max = Math.max(...newVotes); //looking for the highest number of the array
+    setHighestVote(max);
+    const indexMax = newVotes.indexOf(max); //look for the index of the largest number of votes
+    //   setHighestVote(max);
+    setHigestAcout(anecdotes[indexMax]);
+  };
 
   return (
-    <>
-      <div>{anecdotes[selected]}</div>
-      <button onClick={handleNextAnecdote}>Next anecdote</button>
-    </>
+    <div>
+      <h1>Anecdote of the day</h1>
+      {anecdotes[selected]}
+      <br />
+      <p>Has {votes[selected]} votes</p>
+      <br />
+      <button onClick={handleVoteClick}>Vote</button>
+      <button onClick={handleNextAnecdote}>Next Anecdote</button>
+      <br />
+      <h1>Anecdote with most votes</h1>
+      <p>{highestAcoute}</p>
+      <p>Has {highestVote} Vote</p>
+    </div>
   );
 };
 
