@@ -2,30 +2,37 @@ import { useState } from "react";
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
-  const [newPerson, setNewPerson] = useState("");
+  const [newName, setNewName] = useState("");
 
-  const addNames = (event) => {
+  const addPerson = (event) => {
     event.preventDefault();
+    const person = persons.find(p => p.name === newName);
+    
+    if (person) {
+      alert(`${person.name} is already added to phonebook`);
+      return
+    } 
+
     const personObject = {
-      name: newPerson
+      name: newName
     }
 
     setPersons(persons.concat(personObject))
-    setNewPerson("")
+    setNewName("");
     
   }
 
   const handlePersonChange = (event) => {
-    setNewPerson(event.target.value);
+    setNewName(event.target.value);
 
   }
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addNames}>
+      <form onSubmit={addPerson}>
         <div>
           name:
-          <input value={newPerson} onChange={handlePersonChange} />
+          <input value={newName} onChange={handlePersonChange} />
         </div>
         <div>
           <button type="submit">add</button>
