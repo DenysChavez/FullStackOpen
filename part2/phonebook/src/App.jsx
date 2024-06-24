@@ -18,13 +18,35 @@ const App = () => {
        })
    }, []);
   
+    const cleanForm = () => {
+      setNewName("");
+      setNewNumber("");
+    };
+  
+  const updatePerson = (person) => {
+    const confirm = window.confirm(
+      `${person.name} is already added to phonebook, replace the old number with a new one?`
+    )
+    if (confirm) {
+      personService.update(person.id, { ...person, number: newNumber })
+        .then((updatedPerson) => {
+          setPersons(
+            persons.map((p) => (p.id !== person.id ? p : updatedPerson))
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+           cleanForm();
+    }
+  }
 
   const addPerson = (event) => {
     event.preventDefault();
     const person = persons.find(p => p.name === newName);
     
     if (person) {
-      alert(`${person.name} is already added to phonebook`);
+      updatePerson(person)
       return
     } 
 
