@@ -4,12 +4,14 @@ import Persons from "./components/Persons";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import personService from './services/persons'
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [info, setInfo] = useState({message: null})
 
    useEffect(() => {
      personService.getAll()
@@ -18,10 +20,15 @@ const App = () => {
        })
    }, []);
   
-    const cleanForm = () => {
+  const messageNotification = (message, type = 'info') => {
+    setInfo({ message, type })
+
+  }
+  
+  const cleanForm = () => {
       setNewName("");
       setNewNumber("");
-    };
+  };
   
   const updatePerson = (person) => {
     const confirm = window.confirm(
@@ -55,10 +62,14 @@ const App = () => {
       number: newNumber
     }
 
-    personService.create(personObject).then(response => {
-          setPersons(persons.concat(response.data));
-          setNewName("");
-          setNewNumber("");
+    personService.create(personObject).then(createdPerson => {
+      setPersons(persons.concat(createdPerson));
+      setNewName("");
+      setNewNumber("");
+
+      messageNotification(`${createdPerson.name} added!`);
+      
+
     })
     
   }
@@ -80,6 +91,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification info={info} />
       <Filter filter={filter} setFilter={setFilter} />
       <h2>Add a New</h2>
       <PersonForm
