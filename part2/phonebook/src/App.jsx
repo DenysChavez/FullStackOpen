@@ -2,7 +2,6 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import personService from './services/persons'
 import Notification from "./components/Notification";
 
@@ -22,7 +21,9 @@ const App = () => {
   
   const messageNotification = (message, type = 'info') => {
     setInfo({ message, type })
-
+    setTimeout(() => {
+      setInfo({ message: null });
+    }, 5000);
   }
   
   const cleanForm = () => {
@@ -84,6 +85,8 @@ const App = () => {
       personService.remove(person.id)
         .then(() => {
           setPersons(persons.filter(p => p.id !== person.id))
+        }).catch(error => {
+          messageNotification(`Information of "${person.name}" has already been removed from server`, "error");
         })
     }
   }
