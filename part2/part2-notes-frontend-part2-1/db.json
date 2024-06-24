@@ -21,11 +21,6 @@
       "important": true
     },
     {
-      "id": 4,
-      "content": "Micho Bonito",
-      "important": false
-    },
-    {
       "id": 6,
       "content": "a new note",
       "important": true
@@ -38,6 +33,16 @@
     {
       "id": "f23b",
       "content": "Micho Bonito",
+      "important": true
+    },
+    {
+      "id": "d49b",
+      "content": "Micho /",
+      "important": true
+    },
+    {
+      "id": "6ca6",
+      "content": "a new note",
       "important": true
     }
   ]
