@@ -1,14 +1,18 @@
 import React from 'react'
 
-const Persons = ({ persons }) => {
+const Persons = ({ persons, toggleDelete }) => {
+
   return (
-    <div>
+    <>
       {persons.map((person) => (
-        <p key={person.name}>
-          {person.name} {person.number}
-        </p>
+        <div key={person.id}>
+          <p>
+            {person.name} {person.number}
+          </p>
+          <button onClick={() =>toggleDelete(person)}>Delete</button>
+        </div>
       ))}
-    </div>
+    </>
   );
 };
 

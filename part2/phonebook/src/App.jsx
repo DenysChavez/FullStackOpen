@@ -45,6 +45,16 @@ const App = () => {
 
   const personsToShow = filter ? persons.filter(byFilterField) : persons
 
+  const toggleDelete = (person) => {
+    const confirm = window.confirm(`remove ${person.name} from phonebook?`)
+    if (confirm) {
+      personService.remove(person.id)
+        .then(() => {
+          setPersons(persons.filter(p => p.id !== person.id))
+        })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -58,7 +68,7 @@ const App = () => {
         setNewNumber={setNewNumber}
       />
       <h2>Numbers</h2>
-      <Persons persons={personsToShow}/>
+      <Persons persons={personsToShow} toggleDelete={toggleDelete} />
     </div>
   );
 };
