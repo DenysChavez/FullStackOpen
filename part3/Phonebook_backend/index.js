@@ -1,7 +1,8 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 
-app.use(express.json());
+morgan.token("body", (req) => JSON.stringify(req.body));
 
 let persons = [
   {
@@ -25,6 +26,11 @@ let persons = [
     number: "39-23-6423122",
   },
 ];
+
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
+app.use(express.json());
 
 app.get("/api/persons", (request, response) => {
     response.json(persons)
